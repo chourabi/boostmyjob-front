@@ -25,10 +25,12 @@ class AdminAddJob extends React.Component {
             body: "",
             status: 0,
             keywords: "",
-            experience: "",
-            type: "",
+            experience: "+ 1 ans",
+            type: "à plein temps",
             salary:"",
-            errMsg:""
+            errMsg:"",
+            max_salary:"",
+            min_salary:""
             
         }
     }
@@ -113,7 +115,7 @@ class AdminAddJob extends React.Component {
             .mutate({
                 mutation: gql`
                 mutation{
-                    addPost( title:"${this.state.title}",body:"${this.state.body}",status:${this.state.status},keywords:"${this.state.keywords}",type:"${this.state.type}",experience:"${this.state.experience}",salary:"${this.state.salary}" ) {
+                    addPost( title:"${this.state.title}",body:"${this.state.body}",status:${this.state.status},keywords:"${this.state.keywords}",type:"${this.state.type}",experience:"${this.state.experience}",salary:"${this.state.min_salary}$ - ${this.state.max_salary}$", date_time:"${new Date().toString()}" ) {
                       id
                     }
                   }
@@ -179,7 +181,7 @@ class AdminAddJob extends React.Component {
 
                                 <h1 className="h3 mb-4 text-gray-800">Nos offres d'emplois</h1>
 
-                                <Link className="btn btn-info btn-sm" to="/profile/admin/add" >Ajouter un offre</Link>
+ 
                                 <hr />
 
 
@@ -198,16 +200,37 @@ class AdminAddJob extends React.Component {
                                             <input className="form-control" onChange={ (e)=>{ this.setState({ keywords: e.target.value }) } }/>
                                         </div>
                                         <div className="form-group">
-                                            <label>Experience</label>
-                                            <input className="form-control" onChange={ (e)=>{ this.setState({ experience: e.target.value }) } } />
+                                            <label>Experience( en années )</label>
+                                            <select className="form-control" onChange={ (e)=>{ this.setState({ experience: e.target.value }) } }>
+                                                <option value="+ 1 ans" >+ 1 ans</option>
+                                                <option value="+ 2 ans" >+ 2 ans</option>
+                                                <option value="+ 3 ans" >+ 3 ans</option>
+                                                <option value="+ 4 ans" >+ 4 ans</option>
+                                                <option value="+ 5 ans" >+ 5 ans</option>
+                                                
+                                            </select>
                                         </div>
                                         <div className="form-group">
                                             <label>Type</label>
-                                            <input className="form-control" onChange={ (e)=>{ this.setState({ type: e.target.value }) } }/>
+                                            
+
+                                            <select className="form-control" className="form-control" onChange={ (e)=>{ this.setState({ type: e.target.value }) } }>
+                                            <option value="à plein temps" >à plein temps</option> 
+                                            <option value="Mi-temps" >Mi-temps</option> 
+                                                
+                                                
+                                            </select>
                                         </div>
                                         <div className="form-group">
                                             <label>Salaire $</label>
-                                            <input className="form-control" onChange={ (e)=>{ this.setState({ salary: e.target.value }) } }/>
+                                            <div className="row">
+                                                <div className="col-sm-6">
+                                                    <input className="form-control" onChange={ (e)=>{ this.setState({ min_salary: e.target.value }) } }/>
+                                                </div>
+                                                <div className="col-sm-6">
+                                                    <input className="form-control" onChange={ (e)=>{ this.setState({ max_salary: e.target.value }) } }/>
+                                                </div>
+                                            </div>
                                         </div>
                                         
                                         <div className="form-group">

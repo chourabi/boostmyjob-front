@@ -114,7 +114,7 @@ class HomePage extends React.Component {
                             </nav>
                             <div className="container-fluid">
 
-                                <h1 className="h3 mb-4 text-gray-800">Blank Page</h1>
+                                <h1 className="h3 mb-4 text-gray-800">Bienvenue</h1>
 
                             </div>
 

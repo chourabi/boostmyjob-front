@@ -118,7 +118,7 @@ class SignInPage extends React.Component {
               if (result.data.login) {
                   console.log(result.data.login);
                 localStorage.setItem('token',result.data.login);
-                this.props.history.push('/home');
+                this.props.history.push('/profile');
               }
           }).catch((err)=>{
               console.log(err);

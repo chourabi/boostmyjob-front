@@ -201,10 +201,7 @@ class AdminJobOffersList extends React.Component {
                                             </th>
                                             <th>
                                                 Salaire
-                                            </th>
-                                            <th>
-                                                Mot clé
-                                            </th>
+                                            </th> 
                                             
                                                 
                                         </thead>
@@ -217,7 +214,7 @@ class AdminJobOffersList extends React.Component {
                                                                 {o.title}
                                                             </td>
                                                             <td>
-                                                                {o.body}
+                                                                {o.body.substr(0,25)}...
                                                             </td>
                                                             <td>
                                                                 {o.experience}
@@ -227,10 +224,7 @@ class AdminJobOffersList extends React.Component {
                                                             </td>
                                                             <td>
                                                                 {o.salary}
-                                                            </td>
-                                                            <td>
-                                                                {o.keywords.split(" ").join()}
-                                                            </td>
+                                                            </td> 
                                                             
 
                                                         </tr>
