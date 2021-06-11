@@ -22,6 +22,7 @@ class SignUpPage extends React.Component {
             email:"",
             displayName:"",
             userType:"Entreprise",
+            address:''
         }
     }
 
@@ -115,6 +116,8 @@ class SignUpPage extends React.Component {
                   username:"${this.state.username}",
                   displayName:"${this.state.displayName}",
                   userType:"${this.state.userType}",
+                  address:"${this.state.address}"
+                  
                   
                   
                 )
@@ -163,10 +166,15 @@ class SignUpPage extends React.Component {
                                                 <h1 className="h4 text-gray-900 mb-4">Creation de compte !</h1>
                                             </div>
                                             
-                                            <div className="form-group">
+                                                <div className="form-group">
                                                     <input type="text"  className="form-control form-control-user"
                                                         id="exampleInputEmail" aria-describedby="emailHelp"
-                                                        placeholder="nom et prénom" value={ this.state.displayName } onChange={ (e)=>{ this.setState({displayName:e.target.value}) } } />
+                                                        placeholder="nom et prénom ou nom entreprise" value={ this.state.displayName } onChange={ (e)=>{ this.setState({displayName:e.target.value}) } } />
+                                                </div>
+                                                <div className="form-group">
+                                                    <input type="text"  className="form-control form-control-user"
+                                                        id="exampleInputEmail" aria-describedby="emailHelp"
+                                                        placeholder="address" value={ this.state.address } onChange={ (e)=>{ this.setState({address:e.target.value}) } } />
                                                 </div>
                                                 <div className="form-group">
                                                     <input type="text"  className="form-control form-control-user"

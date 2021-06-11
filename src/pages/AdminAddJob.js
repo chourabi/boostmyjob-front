@@ -30,7 +30,8 @@ class AdminAddJob extends React.Component {
             salary:"",
             errMsg:"",
             max_salary:"",
-            min_salary:""
+            min_salary:"",
+            category:'IT'
             
         }
     }
@@ -115,7 +116,7 @@ class AdminAddJob extends React.Component {
             .mutate({
                 mutation: gql`
                 mutation{
-                    addPost( title:"${this.state.title}",body:"${this.state.body}",status:${this.state.status},keywords:"${this.state.keywords}",type:"${this.state.type}",experience:"${this.state.experience}",salary:"${this.state.min_salary}$ - ${this.state.max_salary}$", date_time:"${new Date().toString()}" ) {
+                    addPost( title:"${this.state.title}",body:"${this.state.body}",status:${this.state.status},keywords:"${this.state.keywords}",type:"${this.state.type}",experience:"${this.state.experience}",salary:"${this.state.min_salary}$ - ${this.state.max_salary}$", date_time:"${new Date().toString()}", category:"${this.state.category}" ) {
                       id
                     }
                   }
@@ -198,6 +199,35 @@ class AdminAddJob extends React.Component {
                                         <div className="form-group">
                                             <label>Mot clé</label>
                                             <input className="form-control" onChange={ (e)=>{ this.setState({ keywords: e.target.value }) } }/>
+                                        </div>
+                                        <div className="form-group">
+                                            <label>Catégory</label>
+                                            <select className="form-control" onChange={ (e)=>{ this.setState({ category: e.target.value }) } }>
+                                            <option value="Alimentation" >Alimentation</option>
+                                            <option value="Arts et spectacles" >Arts et spectacles</option>
+                                            <option value="Commerce" >Commerce</option>
+                                            <option value="Alimentation" >Alimentation</option>
+                                            <option value="Communication et marketing" >Communication et marketing</option>
+                                            <option value="Construction" >Construction</option>
+                                            <option value="Coopération internationale" >Coopération internationale</option>
+                                            <option value="Culture et patrimoine" >Culture et patrimoine</option>
+                                            <option value="Enseignement" >Enseignement</option>
+                                            <option value="Habillement, textile et bien-être" >Habillement, textile et bien-être</option>
+                                            <option value="Informatique et multimédia" >Informatique et multimédia</option>
+                                            <option value="Livre et presse" >Livre et presse</option>
+                                            <option value="Management" >Management</option>
+                                            <option value="Nature et environnement" >Nature et environnement</option>
+                                            <option value="Recherche scientifique" >Recherche scientifique</option>
+                                            <option value="Santé" >Santé</option>
+                                            <option value="Sécurité et droit" >Sécurité et droit</option>
+                                            <option value="Social" >Social</option>
+                                            <option value="Sport" >Sport</option>
+                                            <option value="Tourisme" >Tourisme</option>
+                                            <option value="Transport" >Transport</option>
+                                            
+                                    
+                                                
+                                            </select>
                                         </div>
                                         <div className="form-group">
                                             <label>Experience( en années )</label>

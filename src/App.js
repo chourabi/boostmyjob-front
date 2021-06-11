@@ -15,6 +15,7 @@ import WelcomePage from './pages/WelcomePage';
 import AdminAddJob from './pages/AdminAddJob';
 import JobsPage from './pages/JobsPage';
 import OffreDetails from './pages/OffreDetails';
+import CondidateOffresPage from './pages/CondidateOffresPage';
 
 function App() {
   return (
@@ -23,6 +24,8 @@ function App() {
 
         <Switch>
         <Route path="/" component={WelcomePage} exact />
+        <Route path="/welcome" component={WelcomePage} exact />
+        
         <Route path="/filteroffers" component={JobsPage} exact />
         <Route path="/offre/:id" component={OffreDetails} exact />
         
@@ -34,6 +37,8 @@ function App() {
         <Route path="/profile" component={HomePage} exact />
         <Route path="/profile/admin/offres" component={AdminJobOffersList} exact />
         <Route path="/profile/admin/add" component={AdminAddJob} exact />
+        <Route path="/profile/condidate/listoffres" component={CondidateOffresPage} exact />
+        
         
 
         

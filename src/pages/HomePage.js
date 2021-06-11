@@ -65,6 +65,8 @@ class HomePage extends React.Component {
               })
           }).catch((err)=>{
               console.log(err);
+              window.localStorage.clear();
+              this.props.history.push('/signin')
               
           })
     

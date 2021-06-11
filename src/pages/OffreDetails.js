@@ -21,7 +21,9 @@ class OffreDetails extends React.Component {
         this.state = {
             id: props.match.params.id,
             isLoading: true,
-            post:null
+            post:null,
+            myOffres:[],
+            peutPostuler: true
         }
 
     }
@@ -65,10 +67,12 @@ class OffreDetails extends React.Component {
                   experience,
                   salary,
                   date_time,
+                  category,
                     author {
                     id,
                     displayName,
-                    email
+                    email,
+                    address
                   }
                     
                     }  
@@ -96,6 +100,136 @@ class OffreDetails extends React.Component {
 
     componentDidMount() {
         this.getOffer();
+        this.getMyOffres();
+    }
+
+    getMyOffres() {
+        const httpLink = createHttpLink({
+            uri: 'http://localhost:5000/graphql',
+        });
+
+        const authLink = setContext((_, { headers }) => {
+            // get the authentication token from local storage if it exists
+            const token = localStorage.getItem('token');
+            // return the headers to the context so httpLink can read them
+            return {
+                headers: {
+                    ...headers,
+                    authorization: token ? `${token}` : "",
+                }
+            }
+        });
+
+        const client = new ApolloClient({
+            link: authLink.concat(httpLink),
+            cache: new InMemoryCache()
+        });
+
+
+        client
+            .mutate({
+                mutation: gql`
+            query{
+                myOffres {
+                  id,
+                  status,
+                  user{
+                    id
+                    displayName,
+                    email,
+                  }
+                  post{
+                  id,
+                    title,
+                    category
+                    
+                }
+                  
+                }
+              }
+          `
+            })
+            .then(result => {
+                console.log("my offres", result);
+
+                this.setState({
+                    myOffres: result.data.myOffres
+                })
+
+                this.canPostule();
+            }).catch((err) => {
+
+                console.log(err);
+                /*console.log(err);
+                window.localStorage.clear();
+                this.props.history.push('/signin')*/
+
+            })
+
+    }
+
+
+    addOffreCondidature(){
+        console.log(this.props);
+
+        const httpLink = createHttpLink({
+            uri: 'http://localhost:5000/graphql',
+        });
+
+        const authLink = setContext((_, { headers }) => {
+            // get the authentication token from local storage if it exists
+            const token = localStorage.getItem('token');
+            // return the headers to the context so httpLink can read them
+            return {
+                headers: {
+                    ...headers,
+                    authorization: token ? `${token}` : "",
+                }
+            }
+        });
+
+        const client = new ApolloClient({
+            link: authLink.concat(httpLink),
+            cache: new InMemoryCache()
+        });
+
+
+        client
+            .mutate({
+                mutation: gql`
+
+            mutation{
+                addComment(
+                    postId:"${this.state.id}"
+                ) {
+                    id
+                }
+                }
+                
+                `
+            })
+            .then(result => {
+                console.log(result);
+
+                
+
+            }).catch((err) => {
+                console.log(err);
+
+            })
+    }
+
+
+    canPostule(){
+        this.state.myOffres.map((o)=>{
+            if (o.post.id ===this.state.id) {
+                this.setState({
+                    peutPostuler: false
+                   })
+            }
+        })
+
+
     }
 
 
@@ -178,11 +312,16 @@ class OffreDetails extends React.Component {
                                                                 </div>
                                                                 <div class="job-tittle job-tittle2">
                                                                     <a href="#">
-                                                                        <h4 style={{ textTransform: "capitalize" }}>{this.state.post.title}</h4>
+                                                                        <h4 style={{ textTransform: "capitalize" }}>{this.state.post.title} <br/>
+                                                                        <small>{this.state.post.category}</small>
+                                                                        
+                                                                        </h4>
                                                                     </a>
                                                                     <ul>
                                                                         <li>{this.state.post.author.displayName}</li>
                                                                         <li><i class="fas fa-envelope"></i>{this.state.post.author.email}</li> 
+                                                                        <li><i class="fas fa-map-marker"></i>{this.state.post.author.address}</li> 
+                                                                        
                                                                     </ul>
 
                                                                    
@@ -193,23 +332,12 @@ class OffreDetails extends React.Component {
                                                 <div class="job-post-details">
                                                     <div class="post-details1 mb-50">
                                                         <div class="small-section-tittle">
-                                                            <h4>Job Description</h4>
+                                                            <h4>Déscription</h4>
                                                         </div>
                                                         <p>{this.state.post.body}</p>
                                                     </div>
                                                     
-                                                    {/*<div class="post-details2  mb-50">
-                                                        <div class="small-section-tittle">
-                                                            <h4>Education + Experience</h4>
-                                                        </div>
-                                                        <ul>
-                                                            <li>3 or more years of professional design experience</li>
-                                                            <li>Direct response email experience</li>
-                                                            <li>Ecommerce website design experience</li>
-                                                            <li>Familiarity with mobile and web apps preferred</li>
-                                                            <li>Experience using Invision a plus</li>
-                                                        </ul>
-                                                        </div>*/}
+
                                                 </div>
 
                                             </div>
@@ -223,10 +351,30 @@ class OffreDetails extends React.Component {
                                                          
                                                          
                                                         <li>Type demlpoi : <span>{this.state.post.type}</span></li>
-                                                        <li>salaire :  <span>$7,800 yearly</span></li> 
+                                                        <li>salaire :  <span>{this.state.post.salary}</span></li> 
                                                     </ul>
                                                     <div class="apply-btn2">
-                                                        <a href="#" class="btn">POSTULER</a>
+
+                                                        {
+                                                            this.state.peutPostuler === true ?
+                                                            <a href="#" onClick={
+                                                                (e)=>{
+                                                                    e.preventDefault();
+                                                                    if (window.localStorage.getItem('token') == null) {
+                                                                        this.props.history.push('/signin');
+                                                                    }else{
+                                                                        this.addOffreCondidature();
+                                                                    }
+                                                                }
+                                                            } class="btn">POSTULER</a>
+                                                            :
+                                                            <div>
+                                                                <span className="badge badge-warning d-block py-2">postulé</span>
+                                                            </div>
+
+                                                            
+                                                        }
+                                                        
                                                     </div>
                                                 </div>
                                                 <div class="post-details4  mb-50">
@@ -238,6 +386,8 @@ class OffreDetails extends React.Component {
                                                     <ul>
                                                         <li>Name: <span>{this.state.post.author.displayName} </span></li> 
                                                         <li>Email: <span> {this.state.post.author.email} </span></li>
+                                                        <li>Address: <span> {this.state.post.author.address} </span></li>
+                                                        
                                                     </ul>
                                                 </div>
                                             </div>
