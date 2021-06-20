@@ -210,7 +210,7 @@ class OffreDetails extends React.Component {
             })
             .then(result => {
                 console.log(result);
-
+                this.getOffer()
                 
 
             }).catch((err) => {

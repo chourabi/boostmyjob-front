@@ -16,6 +16,10 @@ import AdminAddJob from './pages/AdminAddJob';
 import JobsPage from './pages/JobsPage';
 import OffreDetails from './pages/OffreDetails';
 import CondidateOffresPage from './pages/CondidateOffresPage';
+import AdminOffreSubmitions from './pages/AdminOffreSubmitions';
+import UserProfile from './pages/ProfileUser';
+import AddCV from './pages/CreateCV';
+import CondidateCvDetails from './pages/CondidateCVDetails';
 
 function App() {
   return (
@@ -37,7 +41,20 @@ function App() {
         <Route path="/profile" component={HomePage} exact />
         <Route path="/profile/admin/offres" component={AdminJobOffersList} exact />
         <Route path="/profile/admin/add" component={AdminAddJob} exact />
+
+        
+        <Route path="/profile/condidate" component={UserProfile} exact />
+        <Route path="/profile/cv/add" component={AddCV} exact />
+        <Route path="/users/cv/:id" component={CondidateCvDetails} exact />
+        
+        
+
+        
         <Route path="/profile/condidate/listoffres" component={CondidateOffresPage} exact />
+        <Route path="/profile/condidate/listoffres/condidatures/:id" component={AdminOffreSubmitions} exact />
+        
+
+        
         
         
 

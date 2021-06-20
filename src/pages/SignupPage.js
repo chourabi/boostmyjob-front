@@ -116,10 +116,7 @@ class SignUpPage extends React.Component {
                   username:"${this.state.username}",
                   displayName:"${this.state.displayName}",
                   userType:"${this.state.userType}",
-                  address:"${this.state.address}"
-                  
-                  
-                  
+                  address:"${this.state.address}" 
                 )
               }
           `

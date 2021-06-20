@@ -110,17 +110,29 @@ class AdminJobOffersList extends React.Component {
                     mutation: gql`
                     query{
                         myPosts {
-                          id,
-                          type,
-                          title,
-                          body,
-                          status,
-                          keywords,
-                          experience,
-                          salary
-                          
+                            id,
+                            type,
+                            title,
+                            body,
+                            status,
+                            keywords,
+                            experience,
+                            salary,
+                            comments{
+                                id,
+                                status,
+                                user{
+                                  id,
+                                  username,
+                                  displayName,
+                                  email,
+                                  cv
+                      
+                                }
+                            }
+                      
+                          }
                         }
-                      }
               `
                 })
                 .then(result => {
@@ -202,6 +214,13 @@ class AdminJobOffersList extends React.Component {
                                             <th>
                                                 Salaire
                                             </th> 
+                                            <th>
+                                                Condidatures
+                                            </th> 
+                                            <th>
+                                                Actions
+                                            </th>
+                                            
                                             
                                                 
                                         </thead>
@@ -225,6 +244,15 @@ class AdminJobOffersList extends React.Component {
                                                             <td>
                                                                 {o.salary}
                                                             </td> 
+                                                            <td>
+                                                                <span className="badge badge-danger" >{o.comments.filter((c)=>c.status == 0).length }</span>
+                                                            </td> 
+                                                            <td>
+                                                                <Link to={"/profile/condidate/listoffres/condidatures/"+o.id} className="text-primary" >
+                                                                Voir list condidatures
+                                                                </Link>
+                                                            </td>
+                                                            
                                                             
 
                                                         </tr>

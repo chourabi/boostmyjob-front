@@ -204,7 +204,7 @@ class CondidateOffresPage extends React.Component {
 
                                                         {
                                                             c.status === 1 ?
-                                                                <span className="badge badge-warning d-block">accepter</span>
+                                                                <span className="badge badge-success d-block">accepter</span>
                                                                 :
                                                                 <div className=""></div>
                                                         }

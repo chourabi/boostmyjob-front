@@ -127,6 +127,11 @@ class SideMenu extends React.Component {
                                     <i className="fas fa-fw fa-chart-area"></i>
                                     <span>Mes condidatures</span>
                                 </Link>
+                                <Link className="nav-link" to="/profile/condidate" >
+                                    <i className="fas fa-fw fa-chart-area"></i>
+                                    <span>Mon profile</span>
+                                </Link>
+                                
 
 
 
@@ -141,6 +146,10 @@ class SideMenu extends React.Component {
                                     <i className="fas fa-fw fa-chart-area"></i>
 
                                     <span>Nos offres d'emplois</span>
+                                </Link>
+                                <Link className="nav-link" to="/filteroffers" >
+                                    <i className="fas fa-fw fa-chart-area"></i>
+                                    <span>Découvrir des offres</span>
                                 </Link>
                             </div>
                     }
